@@ -87,12 +87,12 @@ class ChasterApp extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param array|object $response
+     * @param array $response
      * @param AccessToken $token
      *
      * @return ChasterAppResourceOwner
      */
-    protected function createResourceOwner(object|array $response, AccessToken $token): ChasterAppResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): ChasterAppResourceOwner
     {
         return new ChasterAppResourceOwner($response);
     }
