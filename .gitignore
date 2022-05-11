@@ -1,2 +1,11 @@
-/.idea/
-/vendor/
+# IDE & System
+/.idea
+.DS_Store
+
+# External lib
+/vendor
+composer.lock
+coverage.xml
+
+# Testing
+.phpunit.result.cache
