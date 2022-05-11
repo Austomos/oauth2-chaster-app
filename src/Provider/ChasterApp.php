@@ -6,23 +6,41 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ *
+ */
 class ChasterApp extends AbstractProvider
 {
-    use ArrayAccessorTrait;
+    use ArrayAccessorTrait, BearerAuthorizationTrait;
+
     /**
-     * Get access token url to retrieve token
+     * OAuth 2 Base URL used by Chaster API
+     * @var string
+     */
+    protected string $baseAuthUrl = 'https://sso.chaster.app/auth/realms/app/protocol/openid-connect';
+
+    /**
+     * API Domain used for endpoints
+     * @link https://api.chaster.app/api
+     * @var string
+     */
+    protected string $apiDomain = 'https://api.chaster.app';
+
+    /**
+     * Returns the base URL for authorizing a client.
      *
      * @return string
      */
     public function getBaseAuthorizationUrl(): string
     {
-        return 'https://sso.chaster.app/auth/realms/app/protocol/openid-connect/auth';
+        return $this->baseAuthUrl . '/auth';
     }
 
     /**
-     * Get access token url to retrieve token
+     * Returns the base URL for requesting an access token.
      *
      * @param array $params
      *
@@ -30,25 +48,38 @@ class ChasterApp extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return 'https://sso.chaster.app/auth/realms/app/protocol/openid-connect/token';
-    }
-
-    public function getResourceOwnerDetailsUrl(AccessToken $token): string
-    {
-        return 'https://api.chaster.app/auth/profile';
+        return $this->baseAuthUrl . '/token';
     }
 
     /**
-     * Get the default scopes used by this provider.
+     * Returns the URL for requesting the resource owner's details.
      *
-     * This should not be a complete list of all scopes, but the minimum
-     * required for the provider user interface!
+     * By default, the owner's details is an auth request to /auth/profile endpoint
+     *
+     * @param AccessToken $token
+     *
+     * @return string
+     */
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
+    {
+        return $this->apiDomain . '/auth/profile';
+    }
+
+    /**
+     * Get the default scopes used by API.
+     *
+     * This should only be the scopes that are required to request the details
+     * of the resource owner, rather than all the available scopes.
+     *
+     * The default scope required for owner's details is only 'profile'
+     *
+     * @link https://docs.chaster.app/api-scopes
      *
      * @return array
      */
     protected function getDefaultScopes(): array
     {
-        return [];
+        return ['profile'];
     }
 
     /**
@@ -65,23 +96,22 @@ class ChasterApp extends AbstractProvider
     /**
      * Check a provider response for errors.
      *
-     * @throws IdentityProviderException
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param  array $data Parsed response data
+     *
      * @return void
+     *
+     * @throws IdentityProviderException
      */
     protected function checkResponse(ResponseInterface $response, $data): void
     {
-        $errors = [
-            'error',
-            'message',
-        ];
-
-        array_map(function ($error) use ($response, $data) {
-            if ($message = $this->getValueByKey($data, $error)) {
-                throw new IdentityProviderException($message, $response->getStatusCode(), $response);
-            }
-        }, $errors);
+        if ($response->getStatusCode() >= 400) {
+            throw new IdentityProviderException(
+                $data['message'] ?? $response->getReasonPhrase(),
+                $response->getStatusCode(),
+                $data
+            );
+        }
     }
 
     /**
