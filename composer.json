@@ -20,13 +20,14 @@
         "chastity"
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
-        "ext-json": "*",
+        "php": "^8.0 || ^8.1",
         "league/oauth2-client": "^2.6"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "ext-json": "*",
+        "mockery/mockery": "^1.5"
     },
     "autoload": {
         "psr-4": {
