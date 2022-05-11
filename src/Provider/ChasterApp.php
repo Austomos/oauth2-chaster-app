@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpIllegalPsrClassPathInspection */
+
 namespace Austomos\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -14,7 +16,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ChasterApp extends AbstractProvider
 {
-    use ArrayAccessorTrait, BearerAuthorizationTrait;
+    use ArrayAccessorTrait;
+    use BearerAuthorizationTrait;
 
     /**
      * OAuth 2 Base URL used by Chaster API
@@ -30,16 +33,6 @@ class ChasterApp extends AbstractProvider
     protected string $apiDomain = 'https://api.chaster.app';
 
     /**
-     * Returns the base URL for authorizing a client.
-     *
-     * @return string
-     */
-    public function getBaseAuthorizationUrl(): string
-    {
-        return $this->baseAuthUrl . '/auth';
-    }
-
-    /**
      * Returns the base URL for requesting an access token.
      *
      * @param array $params
@@ -49,6 +42,16 @@ class ChasterApp extends AbstractProvider
     public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->baseAuthUrl . '/token';
+    }
+
+    /**
+     * Returns the base URL for authorizing a client.
+     *
+     * @return string
+     */
+    public function getBaseAuthorizationUrl(): string
+    {
+        return $this->baseAuthUrl . '/auth';
     }
 
     /**
@@ -63,6 +66,40 @@ class ChasterApp extends AbstractProvider
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->apiDomain . '/auth/profile';
+    }
+
+    /**
+     * Check a provider response for errors.
+     *
+     * @param ResponseInterface $response
+     * @param array $data Parsed response data
+     *
+     * @return void
+     *
+     * @throws IdentityProviderException
+     */
+    protected function checkResponse(ResponseInterface $response, $data): void
+    {
+        if ($response->getStatusCode() >= 400) {
+            throw new IdentityProviderException(
+                $data['message'] ?? $response->getReasonPhrase(),
+                $response->getStatusCode(),
+                $data
+            );
+        }
+    }
+
+    /**
+     * Generate a user object from a successful user details request.
+     *
+     * @param array $response
+     * @param AccessToken $token
+     *
+     * @return ChasterAppResourceOwner
+     */
+    protected function createResourceOwner(array $response, AccessToken $token): ChasterAppResourceOwner
+    {
+        return new ChasterAppResourceOwner($response);
     }
 
     /**
@@ -91,39 +128,5 @@ class ChasterApp extends AbstractProvider
     protected function getScopeSeparator(): string
     {
         return ' ';
-    }
-
-    /**
-     * Check a provider response for errors.
-     *
-     * @param  ResponseInterface $response
-     * @param  array $data Parsed response data
-     *
-     * @return void
-     *
-     * @throws IdentityProviderException
-     */
-    protected function checkResponse(ResponseInterface $response, $data): void
-    {
-        if ($response->getStatusCode() >= 400) {
-            throw new IdentityProviderException(
-                $data['message'] ?? $response->getReasonPhrase(),
-                $response->getStatusCode(),
-                $data
-            );
-        }
-    }
-
-    /**
-     * Generate a user object from a successful user details request.
-     *
-     * @param array $response
-     * @param AccessToken $token
-     *
-     * @return ChasterAppResourceOwner
-     */
-    protected function createResourceOwner(array $response, AccessToken $token): ChasterAppResourceOwner
-    {
-        return new ChasterAppResourceOwner($response);
     }
 }

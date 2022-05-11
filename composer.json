@@ -21,12 +21,13 @@
     ],
     "require": {
         "php": "^8.0 || ^8.1",
-        "league/oauth2-client": "^2.6"
+        "league/oauth2-client": "^2.6",
+        "ext-json": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.6",
         "phpunit/phpunit": "^9.5",
-        "ext-json": "*",
         "mockery/mockery": "^1.5"
     },
     "autoload": {
@@ -43,5 +44,9 @@
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
+    },
+    "scripts": {
+        "check": "phpcs src test --standard=PSR12 -sp",
+        "fix": "phpcbf src test --standard=PSR12 -p"
     }
 }

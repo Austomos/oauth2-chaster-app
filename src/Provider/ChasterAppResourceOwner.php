@@ -1,5 +1,7 @@
 <?php
+
 /** @noinspection PhpIllegalPsrClassPathInspection */
+
 namespace Austomos\OAuth2\Client\Provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
