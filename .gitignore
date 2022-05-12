@@ -5,7 +5,7 @@
 # External lib
 /vendor
 composer.lock
-coverage.xml
+coverage.*
 
 # Testing
 .phpunit.result.cache
