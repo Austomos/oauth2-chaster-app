@@ -31,10 +31,21 @@ class ChasterAppResourceOwner implements ResourceOwnerInterface
      * @param string $name
      *
      * @return mixed
+     *
+     * @noinspection MagicMethodsValidityInspection
      */
     public function __get(string $name): mixed
     {
-        return $this->getValueByKey($this->response, $name);
+        return $this->response[$name] ?? $this->getValueByKey($this->response, $name);
+    }
+
+    /**
+     * Get profile email
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->getValueByKey($this->response, 'email', '');
     }
 
     /**
@@ -44,6 +55,15 @@ class ChasterAppResourceOwner implements ResourceOwnerInterface
     public function getId(): string
     {
         return $this->getValueByKey($this->response, '_id', '');
+    }
+
+    /**
+     * Get profile Username
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->getValueByKey($this->response, 'username', '');
     }
 
     /**
