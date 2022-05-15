@@ -47,6 +47,7 @@
     },
     "scripts": {
         "check": "phpcs src test --standard=PSR12 -sp",
-        "fix": "phpcbf src test --standard=PSR12 -p"
+        "fix": "phpcbf src test --standard=PSR12 -p",
+        "test": "phpunit test"
     }
 }
