@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   php-cs-fixer:
@@ -22,5 +23,8 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: Run script
+      - name: Run check script with phpcs
         run: composer run check
+
+      - name: Run test script with phpunit
+        run: composer run test
