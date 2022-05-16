@@ -52,14 +52,3 @@ jobs:
       - name: Run PHPUnit tests
         run: composer run test
         if: matrix.coverage == 'none'
-
-      - name: PHPUnit tests and Log Code coverage
-        run: composer run test:coverage:xml
-        if: matrix.coverage == 'xdebug'
-
-      - name: Run codecov
-        uses: codecov/codecov-action@v1
-        if: matrix.coverage == 'xdebug'
-        with:
-          file: './coverage.xml'
-          fail_ci_if_error: true
