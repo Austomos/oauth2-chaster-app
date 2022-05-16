@@ -12,7 +12,7 @@ on:
 
 jobs:
   phpcs-phpunit-check:
-    name: PHP-CodeSniffer
+    name: PHPCS and PHPUnit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

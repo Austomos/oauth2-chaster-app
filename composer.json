@@ -48,6 +48,8 @@
     "scripts": {
         "check": "phpcs src test --standard=PSR12 -sp",
         "fix": "phpcbf src test --standard=PSR12 -p",
-        "test": "phpunit test"
+        "test": "phpunit test",
+        "test:coverage:xml": "phpunit test --coverage-clover=coverage.xml",
+        "test:coverage:html": "phpunit test --coverage-html=coverage.html"
     }
 }

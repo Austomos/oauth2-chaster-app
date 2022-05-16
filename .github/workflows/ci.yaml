@@ -54,7 +54,7 @@ jobs:
         if: matrix.coverage == 'none'
 
       - name: PHPUnit tests and Log Code coverage
-        run: ./vendor/bin/phpunit --exclude-group proxy --coverage-clover=coverage.xml
+        run: composer run test:coverage:xml
         if: matrix.coverage == 'xdebug'
 
       - name: Run codecov

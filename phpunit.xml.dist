@@ -8,10 +8,6 @@
         <include>
             <directory suffix=".php">src/</directory>
         </include>
-        <report>
-            <clover outputFile="coverage.xml"/>
-            <html outputDirectory="coverage.html" lowUpperBound="50" highLowerBound="90"/>
-        </report>
     </coverage>
     <testsuites>
         <testsuite name="default">
