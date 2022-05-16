@@ -1,14 +1,17 @@
-name: Code style
+name: PHPCS PSR12 & PHPUnit
 
 on:
   pull_request:
-  push:
     branches:
       - main
       - dev
+  push:
+    paths:
+      - '**.php'
+
 
 jobs:
-  php-cs-fixer:
+  phpcs-phpunit-check:
     name: PHP-CodeSniffer
     runs-on: ubuntu-latest
     steps:
