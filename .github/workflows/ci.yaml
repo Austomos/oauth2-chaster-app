@@ -13,6 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         php:
+          - '7.4'
           - '8.0'
           - '8.1'
         minimum_versions: [false]
@@ -58,7 +59,7 @@ jobs:
         if: matrix.coverage == 'xdebug'
 
       - name: Run codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3.1.0
         if: matrix.coverage == 'xdebug'
         with:
           file: './coverage.xml'
