@@ -36,7 +36,7 @@ class ChasterAppResourceOwner implements ResourceOwnerInterface
      */
     public function __get(string $name): mixed
     {
-        return $this->response[$name] ?? $this->getValueByKey($this->response, $name);
+        return $this->getValueByKey($this->response, $name);
     }
 
     /**
