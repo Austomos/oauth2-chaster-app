@@ -2,7 +2,8 @@
 [![Latest Version](https://img.shields.io/github/release/austomos/oauth2-chaster-app.svg?style=flat-square)](https://github.com/austomos/oauth2-chaster-app/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This package provides Github OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
+This package provides Github OAuth 2.0 support for the PHP League's [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).  
+For more information on Chaster App API, please refer to its [documentation](https://docs.chaster.app/api-oauth-2/).
 
 ## Installation
 
@@ -19,7 +20,7 @@ Usage is the same as The League's OAuth client, using `\Austomos\OAuth2\Client\P
 ### Authorization Code Flow
 
 ```php
-$provider = new League\OAuth2\Client\Provider\ChasterApp([
+$provider = new Austomos\OAuth2\Client\Provider\ChasterApp([
     'clientId'          => '{chaster-client-id}',
     'clientSecret'      => '{chaster-client-secret}',
     'redirectUri'       => 'https://example.com/callback-url',

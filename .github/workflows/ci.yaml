@@ -13,16 +13,17 @@ jobs:
       fail-fast: false
       matrix:
         php:
+          - '7.4'
           - '8.0'
           - '8.1'
         minimum_versions: [false]
         coverage: ['none']
         include:
           - description: 'Minimum version'
-            php: '8.0'
+            php: '7.4'
             minimum_versions: true
           - description: 'Log Code Coverage'
-            php: '8.1'
+            php: '8.0'
             coverage: 'xdebug'
 
     name: PHP ${{ matrix.php }} ${{ matrix.description }}
@@ -52,3 +53,14 @@ jobs:
       - name: Run PHPUnit tests
         run: composer run test
         if: matrix.coverage == 'none'
+
+      - name: PHPUnit tests and Log Code coverage
+        run: composer run test:coverage:xml
+        if: matrix.coverage == 'xdebug'
+
+      - name: Run codecov
+        uses: codecov/codecov-action@v1
+        if: matrix.coverage == 'xdebug'
+        with:
+          file: './coverage.xml'
+          fail_ci_if_error: true
