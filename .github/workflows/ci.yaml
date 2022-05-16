@@ -13,14 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         php:
-          - '7.4'
           - '8.0'
           - '8.1'
         minimum_versions: [false]
         coverage: ['none']
         include:
           - description: 'Minimum version'
-            php: '7.4'
+            php: '8.0'
             minimum_versions: true
           - description: 'Log Code Coverage'
             php: '8.0'
