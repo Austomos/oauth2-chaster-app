@@ -34,7 +34,7 @@ class ChasterAppResourceOwner implements ResourceOwnerInterface
      *
      * @noinspection MagicMethodsValidityInspection
      */
-    public function __get(string $name): mixed
+    public function __get(string $name)
     {
         return $this->getValueByKey($this->response, $name);
     }

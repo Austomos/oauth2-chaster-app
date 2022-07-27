@@ -16,11 +16,10 @@
         "authorization",
         "authorisation",
         "chaster.app",
-        "chaster",
-        "chastity"
+        "chaster"
     ],
     "require": {
-        "php": "^8.0 || ^8.1",
+        "php": ">=7.4",
         "league/oauth2-client": "^2.6",
         "ext-json": "*"
     },
@@ -46,10 +45,11 @@
         }
     },
     "scripts": {
-        "check": "phpcs src test --standard=PSR12 -sp",
-        "fix": "phpcbf src test --standard=PSR12 -p",
-        "test": "phpunit test",
-        "test:coverage:xml": "phpunit test --coverage-clover=coverage.xml",
-        "test:coverage:html": "phpunit test --coverage-html=coverage.html"
+        "phpunit": "./vendor/bin/phpunit",
+        "check": "./vendor/bin/phpcs src test --standard=PSR12 -sp",
+        "fix": "./vendor/bin/phpcbf src test --standard=PSR12 -p",
+        "test": "@phpunit test",
+        "test:coverage:xml": "@phpunit test --coverage-clover=coverage.xml",
+        "test:coverage:html": "@phpunit test --coverage-html=coverage-html"
     }
 }
