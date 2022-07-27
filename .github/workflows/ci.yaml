@@ -58,6 +58,9 @@ jobs:
         run: composer run test:coverage:xml
         if: matrix.coverage == 'xdebug'
 
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+
       - name: Run codecov
         uses: codecov/codecov-action@v3.1.0
         if: matrix.coverage == 'xdebug'
