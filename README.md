@@ -1,5 +1,5 @@
 # Chaster App Provider for OAuth 2.0 Client
-[![Latest Version](https://img.shields.io/github/release/austomos/oauth2-chaster-app.svg?style=flat-square)](https://github.com/austomos/oauth2-chaster-app/releases)
+[![Latest Version](https://img.shields.io/github/release/austomos/oauth2-chaster-app.svg)](https://github.com/austomos/oauth2-chaster-app/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![PR Validation](https://img.shields.io/github/workflow/status/austomos/oauth2-chaster-app/CI?label=PR%20Validation&logo=github&style=flat-square)](https://github.com/austomos/oauth2-chaster-app/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/Austomos/oauth2-chaster-app/branch/main/graph/badge.svg?token=4K1DPZLW7B)](https://codecov.io/gh/Austomos/oauth2-chaster-app)
