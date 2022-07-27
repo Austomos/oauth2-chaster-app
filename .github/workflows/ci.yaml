@@ -64,10 +64,4 @@ jobs:
           files: ./coverage.xml
           flags: unittests
           fail_ci_if_error: true
-
-      - name: Run codecov
-        uses: codecov/codecov-action@v3.1.0
         if: matrix.coverage == 'xdebug'
-        with:
-          file: './coverage.xml'
-          fail_ci_if_error: true
